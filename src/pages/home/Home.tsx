@@ -1,5 +1,10 @@
+import LoginPage from "../login/Login";
+
 export default function Home() {
   return (
-    <div>home</div>
+    <div>
+
+      <LoginPage></LoginPage>
+    </div>
   )
 }
