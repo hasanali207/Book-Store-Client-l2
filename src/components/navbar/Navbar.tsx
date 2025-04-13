@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/redux/slices/authSlice";
 import { RootState } from "@/redux/store";
-import { useTheme } from "../ui/themeProvider";
+import { useTheme } from "../../components/ui/ThemeProvider";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

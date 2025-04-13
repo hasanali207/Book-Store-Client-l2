@@ -7,6 +7,8 @@ import RegisterPage from "@/pages/register/register";
 import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Cart from "@/pages/cart/Cart";
+import Checkout from "@/pages/checkout/CheckOut";
+import OrderConfirmation from "@/pages/order/OrderConfirmation";
 export const router = createBrowserRouter([
     {
       path: "/",
@@ -22,10 +24,12 @@ export const router = createBrowserRouter([
         element: <PrivateRoute />,
         children: [{ index: true, element: <Cart /> }],
       },
+      { path: "checkout", element: <Checkout></Checkout> },
+      { path: "order-confirmation/:id", element: <OrderConfirmation /> },
     ],
       
     },
     { path: "/login", element: <LoginPage /> },
-  { path: "/register", element: <RegisterPage /> },
+    { path: "/register", element: <RegisterPage /> },
 
   ]); 
