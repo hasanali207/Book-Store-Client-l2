@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { registerUser } from "@/api/authApi";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { registerUser } from "@/api/authApi";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,26 +34,23 @@ export default function RegisterPage() {
       <div className="w-full p-4 sm:p-8 md:p-12 lg:p-16 flex flex-col bg-white dark:bg-[#101010] overflow-y-auto scrollbar-hide">
         <div className="max-w-md mx-auto w-full">
           {/* Header */}
-          <div className="flex items-center mb-8">
+          <div className="flex items-center mb-8 justify-center">
             <Link
               to="/"
               className="text-[#101010] dark:text-white hover:opacity-80"
             >
               <ArrowLeft className="w-6 h-6" />
             </Link>
-            <h1 className="text-2xl lg:text-3xl font-bold ml-4 text-[#101010] dark:text-white">
-              CREATE ACCOUNT
+            <h1 className="text-2xl lg:text-3xl font-bold ml-4 text-[#101010] dark:text-white ">
+              Register
             </h1>
           </div>
 
           {/* Welcome Text */}
-          <div className="mb-8">
+          <div className="mb-8 text-center">
+           
             <p className="text-gray-600 dark:text-gray-300 text-sm">
-              Welcome to Cryptop!
-            </p>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
-              Just a few steps and you going to join your{" "}
-              <strong>Stationary Shop</strong>!
+              Do Register for access our Book Store
             </p>
           </div>
 
@@ -71,7 +68,7 @@ export default function RegisterPage() {
                 name="name"
                 placeholder="Name"
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-full text-[#101010] dark:text-white bg-white dark:bg-[#101010] focus:outline-none focus:ring-2 focus:ring-[#0AE08F]"
+                className="w-full px-4 py-3 border border-gray-300 rounded-full text-[#101010] dark:text-white bg-white dark:bg-[#101010] focus:outline-none focus:ring-2 focus:ring-[#1B56FD]"
                 required
               />
             </div>
@@ -87,7 +84,7 @@ export default function RegisterPage() {
                 name="email"
                 placeholder="Give your Email"
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-full text-[#101010] dark:text-white bg-white dark:bg-[#101010] focus:outline-none focus:ring-2 focus:ring-[#0AE08F]"
+                className="w-full px-4 py-3 border border-gray-300 rounded-full text-[#101010] dark:text-white bg-white dark:bg-[#101010] focus:outline-none focus:ring-2 focus:ring-[#1B56FD]"
                 required
               />
             </div>
@@ -103,7 +100,7 @@ export default function RegisterPage() {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-full text-[#101010] dark:text-white bg-white dark:bg-[#101010] focus:outline-none focus:ring-2 focus:ring-[#0AE08F]"
+                className="w-full px-4 py-3 border border-gray-300 rounded-full text-[#101010] dark:text-white bg-white dark:bg-[#101010] focus:outline-none focus:ring-2 focus:ring-[#1B56FD]"
                 required
               />
               <button
@@ -121,14 +118,14 @@ export default function RegisterPage() {
 
             <div className="text-sm text-gray-600 dark:text-gray-300">
               By creating an account you agree to our{" "}
-              <Link to="/terms" className="text-[#0AE08F] hover:underline">
+              <Link to="/terms" className="text-[#1B56FD] hover:underline">
                 Terms of Service
               </Link>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-[#0AE08F] text-white py-4 rounded-full hover:opacity-90 transition-all duration-200 text-base font-medium disabled:opacity-50"
+              className="w-full bg-[#1B56FD] text-white py-4 rounded-full hover:opacity-90 transition-all duration-200 text-base font-medium disabled:opacity-50"
             >
               {"Sign Up"}
             </button>
@@ -138,7 +135,7 @@ export default function RegisterPage() {
                 Already have an account?{" "}
                 <Link
                   to="/auth/login"
-                  className="text-[#0AE08F] hover:underline"
+                  className="text-[#1B56FD] hover:underline"
                 >
                   Sign in
                 </Link>

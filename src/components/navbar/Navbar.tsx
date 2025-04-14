@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Menu, Sun, Moon, X, ShoppingCart, Edit } from "lucide-react";
-import { Link, NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/redux/slices/authSlice";
 import { RootState } from "@/redux/store";
+import { Edit, Menu, Moon, ShoppingCart, Sun, X } from "lucide-react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../../components/ui/ThemeProvider";
 
 const Navbar = () => {
@@ -161,13 +161,13 @@ const Navbar = () => {
             <div className="flex items-center space-x-4">
               <NavLink
                 to="/login"
-                className="bg-[#0AE08F] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
+                className="bg-[#1B56FD] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
               >
                 Login
               </NavLink>
               <NavLink
                 to="/register"
-                className="bg-[#0AE08F] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
+                className="bg-[#1B56FD] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
               >
                 Register
               </NavLink>
@@ -228,7 +228,7 @@ const Navbar = () => {
               </NavLink>
               <button
                 onClick={handleLogout}
-                className="bg-[#0AE08F] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
+                className="bg-[#1B56FD] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
               >
                 Logout
               </button>
@@ -237,14 +237,14 @@ const Navbar = () => {
             <div className="flex flex-col items-center space-y-4">
               <NavLink
                 to="/login"
-                className="bg-[#0AE08F] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
+                className="bg-[#1B56FD] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
                 onClick={closeMenu}
               >
                 Login
               </NavLink>
               <NavLink
                 to="/register"
-                className="bg-[#0AE08F] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
+                className="bg-[#1B56FD] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
                 onClick={closeMenu}
               >
                 Register

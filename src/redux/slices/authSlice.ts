@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+// Helper function to get user data from localStorage
 const getUserFromLocalStorage = () => {
   try {
     const user = localStorage.getItem("user");
@@ -10,7 +11,21 @@ const getUserFromLocalStorage = () => {
   }
 };
 
-const initialState = {
+// Define the initial state structure
+interface AuthState {
+  user: {
+    _id: string;
+    name: string;
+    role: "user" | "admin";
+    email: string;
+    image?: string;
+    shippingAddress?: string;
+  } | null;
+  token: string | null;
+  role: string | null;
+}
+
+const initialState: AuthState = {
   user: getUserFromLocalStorage(),
   token: localStorage.getItem("token") || null,
   role: localStorage.getItem("role") || null,
@@ -20,7 +35,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser: (state, action) => {
+    // Set the user and token into state and localStorage
+    setUser: (state, action: PayloadAction<{ user: any; token: string }>) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.role = action.payload.user.role;
@@ -30,6 +46,7 @@ const authSlice = createSlice({
       localStorage.setItem("role", action.payload.user.role);
     },
 
+    // Logout the user and clear from localStorage
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -40,9 +57,16 @@ const authSlice = createSlice({
       localStorage.removeItem("role");
     },
 
-    updateProfile: (state, action) => {
+    // Update profile and persist it to localStorage
+    updateProfile: (
+      state,
+      action: PayloadAction<{ name?: string; shippingAddress?: string; image?: string }>
+    ) => {
       if (state.user) {
+        // Update the user state with the new profile data
         state.user = { ...state.user, ...action.payload };
+        
+        // Persist updated user data in localStorage
         localStorage.setItem("user", JSON.stringify(state.user));
       }
     },
