@@ -22,7 +22,7 @@ export default function RegisterPage() {
     try {
       await registerUser(formData);
       toast.success("Registration successful!");
-      navigate("/login");
+      navigate("/auth/login");
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +48,6 @@ export default function RegisterPage() {
 
           {/* Welcome Text */}
           <div className="mb-8 text-center">
-           
             <p className="text-gray-600 dark:text-gray-300 text-sm">
               Do Register for access our Book Store
             </p>

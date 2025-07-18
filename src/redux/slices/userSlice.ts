@@ -31,7 +31,7 @@ export const fetchUsers = createAsyncThunk<User[]>(
     const response = await axios.get(`${BASE_URL}/users`);
     console.log("Fetched users:", response.data);
     return response.data;
-  }
+  },
 );
 
 // Update user role
@@ -59,7 +59,7 @@ export const updateUserProfile = createAsyncThunk<
       image,
     });
     return response.data;
-  }
+  },
 );
 
 // Delete user
@@ -68,7 +68,7 @@ export const deleteUser = createAsyncThunk<string, string>(
   async (userId) => {
     await axios.delete(`${BASE_URL}/users/${userId}`);
     return userId;
-  }
+  },
 );
 
 // User Slice
@@ -95,18 +95,18 @@ const userSlice = createSlice({
         updateUserRole.fulfilled,
         (state, action: PayloadAction<User>) => {
           const index = state.users.findIndex(
-            (user) => user._id === action.payload._id
+            (user) => user._id === action.payload._id,
           );
           if (index !== -1) {
             state.users[index] = action.payload;
           }
-        }
+        },
       )
       //Update user
       .addCase(updateUserProfile.fulfilled, (state, action) => {
         const updatedUser = action.payload;
         const index = state.users.findIndex(
-          (user) => user._id === updatedUser._id
+          (user) => user._id === updatedUser._id,
         );
         if (index !== -1) {
           state.users[index] = { ...state.users[index], ...updatedUser };

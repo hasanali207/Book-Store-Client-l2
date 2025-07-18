@@ -16,7 +16,7 @@ type User = {
 const ManageUsers = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { users, status, error } = useSelector(
-    (state: RootState) => state.users
+    (state: RootState) => state.users,
   );
 
   const [selectedUser, setSelectedUser] = useState<User | null>(null);

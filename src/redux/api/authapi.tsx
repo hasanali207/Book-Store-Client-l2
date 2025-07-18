@@ -12,7 +12,7 @@ export const authApi = createApi({
         url: "/auth/register",
         method: "POST",
         body: userData,
-      }), 
+      }),
     }),
 
     //Login

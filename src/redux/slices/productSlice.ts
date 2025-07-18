@@ -29,10 +29,10 @@ export const createProduct = createAsyncThunk<Product, Product>(
       return response.data.data;
     } catch (error: any) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to create product"
+        error.response?.data?.message || "Failed to create product",
       );
     }
-  }
+  },
 );
 
 // Fetch all products
@@ -41,7 +41,7 @@ export const fetchProducts = createAsyncThunk<Product[]>(
   async () => {
     const response = await axios.get(`${BASE_URL}/products`);
     return response.data.data;
-  }
+  },
 );
 
 // Fetch product by ID
@@ -50,7 +50,7 @@ export const fetchProductById = createAsyncThunk<Product, string>(
   async (id: string) => {
     const response = await axios.get(`${BASE_URL}/products/${id}`);
     return response.data.data;
-  }
+  },
 );
 
 // Delete product
@@ -62,10 +62,10 @@ export const deleteProduct = createAsyncThunk<string, string>(
       return id;
     } catch (error: any) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to delete product"
+        error.response?.data?.message || "Failed to delete product",
       );
     }
-  }
+  },
 );
 
 // Update product
@@ -78,15 +78,15 @@ export const updateProduct = createAsyncThunk<
     try {
       const response = await axios.put(
         `${BASE_URL}/products/${id}`,
-        updatedData
+        updatedData,
       );
       return response.data.data;
     } catch (error: any) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to update product"
+        error.response?.data?.message || "Failed to update product",
       );
     }
-  }
+  },
 );
 
 const productSlice = createSlice({
@@ -141,7 +141,7 @@ const productSlice = createSlice({
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.products = state.products.filter(
-          (product) => product._id !== action.payload
+          (product) => product._id !== action.payload,
         );
       })
       .addCase(deleteProduct.rejected, (state, action) => {
@@ -156,7 +156,7 @@ const productSlice = createSlice({
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.products = state.products?.map((product) =>
-          product._id === action.payload._id ? action.payload : product
+          product._id === action.payload._id ? action.payload : product,
         );
       })
       .addCase(updateProduct.rejected, (state, action) => {

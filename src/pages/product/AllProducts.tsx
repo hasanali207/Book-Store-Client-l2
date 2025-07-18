@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const AllProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { products, status, error } = useSelector(
-    (state: RootState) => state.products
+    (state: RootState) => state.products,
   );
   // console.log(products)
 

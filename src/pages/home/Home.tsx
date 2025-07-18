@@ -1,10 +1,8 @@
-import LoginPage from "../login/Login";
 
 export default function Home() {
   return (
     <div>
-
-      <LoginPage></LoginPage>
+      <h1 className="mt-10">This is home page</h1>
     </div>
-  )
+  );
 }

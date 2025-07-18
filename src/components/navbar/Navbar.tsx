@@ -160,7 +160,7 @@ const Navbar = () => {
           ) : (
             <div className="flex items-center space-x-4">
               <NavLink
-                to="/login"
+                to="auth/login"
                 className="bg-[#1B56FD] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
               >
                 Login
@@ -236,7 +236,7 @@ const Navbar = () => {
           ) : (
             <div className="flex flex-col items-center space-y-4">
               <NavLink
-                to="/login"
+                to="auth/login"
                 className="bg-[#1B56FD] text-white px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
                 onClick={closeMenu}
               >

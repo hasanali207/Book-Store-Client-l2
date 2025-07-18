@@ -10,15 +10,11 @@ import {
 } from "@stripe/react-stripe-js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import {
-  fetchCart,
-  clearCart,
-} from "@/redux/slices/cartSlice";
+import { fetchCart, clearCart } from "@/redux/slices/cartSlice";
 import { placeOrder } from "@/redux/slices/orderSlice";
-
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const stripePromise = loadStripe(
-  import.meta.env.VITE_STRIPE_PUBLIC_KEY as string
+  import.meta.env.VITE_STRIPE_PUBLIC_KEY as string,
 );
 
 const CheckoutForm = () => {
@@ -26,14 +22,13 @@ const CheckoutForm = () => {
   const elements = useElements();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const user = useSelector((state: RootState) => state.auth.user);
-  const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
   const totalAmount = cartItems.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
-    0
+    0,
   );
 
   // 🆕 Fetch cart on mount
@@ -44,25 +39,28 @@ const CheckoutForm = () => {
   }, [dispatch, cartItems.length]);
 
   const handlePayment = async () => {
+     if (user?.role === "admin") {
+      return toast.error("Admins cannot place orders.");
+      
+    }
+
     if (!stripe || !elements) return;
     setLoading(true);
-
-    if (user?.role === "admin") {
-      toast.error("Admins cannot place orders.");
-      return;
-    }
+   
+    if (!user?.email) {
+  throw new Error("User email is required to place order");
+}
 
     try {
       const res = await fetch(`${BASE_URL}/payments/create-payment-intent`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: totalAmount * 100,
+          amount: Math.round(totalAmount * 100),
           currency: "usd",
-          userId: user?.id,
+          userId: user?.id
         }),
       });
-
       const { clientSecret } = await res.json();
 
       const result = await stripe.confirmCardPayment(clientSecret, {
@@ -70,23 +68,22 @@ const CheckoutForm = () => {
       });
 
       if (result.error) {
-        console.error(result.error.message);
         toast.error(result.error.message);
       } else {
         toast.success("Payment successful! Placing your order...");
 
         dispatch(
           placeOrder({
-            email: user?.email,
-            products: cartItems.map((item) => ({
-              product: item.product._id!, 
+              email: user?.email,
+              products: cartItems.map((item) => ({
+              product: item.product._id!,
               name: item.product.name,
               price: item.product.price,
               quantity: item.quantity,
             })),
             totalPrice: totalAmount,
             paymentIntentId: result.paymentIntent.id,
-          })
+          }),
         ).then((orderAction) => {
           if (placeOrder.fulfilled.match(orderAction)) {
             toast.success("Order placed successfully!");
@@ -102,7 +99,6 @@ const CheckoutForm = () => {
         });
       }
     } catch (err) {
-      console.error("Payment failed", err);
       toast.error("Payment failed. Please try again.");
     }
     setLoading(false);
@@ -149,12 +145,12 @@ const CheckoutForm = () => {
           <button
             onClick={handlePayment}
             className="bg-green-600 text-white px-6 py-3 rounded-lg w-full hover:bg-green-700 transition-colors"
-            disabled={loading || user?.role === "admin"}
+            
           >
             {loading ? "Processing..." : "Pay Now"}
           </button>
         </div>
-      </div>   
+      </div>
     </div>
   );
 };

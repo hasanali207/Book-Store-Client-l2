@@ -32,7 +32,7 @@ const AddProductModal = ({ isOpen, onClose }: AddProductModalProps) => {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData({

@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/redux/store";
 import { fetchOrders, updateOrderStatus } from "@/redux/slices/orderSlice";
 import { toast } from "sonner";
-import { AppWindow, CropIcon} from "lucide-react";
+import { AppWindow, CropIcon } from "lucide-react";
 
 const ManageOrders = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { orders, status, error } = useSelector(
-    (state: RootState) => state.orders
+    (state: RootState) => state.orders,
   );
 
   useEffect(() => {
@@ -64,8 +64,8 @@ const ManageOrders = () => {
                       order.status === "Processing"
                         ? "bg-yellow-500 text-white"
                         : order.status === "Approved"
-                        ? "bg-green-500 text-white"
-                        : "bg-red-500 text-white"
+                          ? "bg-green-500 text-white"
+                          : "bg-red-500 text-white"
                     }`}
                   >
                     {order.status}
@@ -88,7 +88,7 @@ const ManageOrders = () => {
                           handleUpdateStatus(order._id, "Rejected")
                         }
                       >
-                       <CropIcon size={16}/> Reject
+                        <CropIcon size={16} /> Reject
                       </button>
                     </>
                   )}

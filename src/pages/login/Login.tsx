@@ -3,7 +3,7 @@ import { setUser } from "@/redux/slices/authSlice";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export default function LoginPage() {
@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [loginUser] = useLoginUserMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,11 +26,12 @@ export default function LoginPage() {
     try {
       const response = await loginUser(formData);
       const { user, token } = response.data;
-      console.log("user:", user, "token:", token);
       dispatch(setUser({ user, token }));
-
       toast.success("Login successful!");
-      navigate("/");
+
+      // Redirect to previous path or home
+      const previousPath = location.state?.from?.pathname || "/";
+      navigate(previousPath, { replace: true });
     } catch (error) {
       console.log(error);
       toast.error("Login failed! Check your credentials.");
@@ -56,7 +58,7 @@ export default function LoginPage() {
 
           {/* Welcome Text */}
           <div className="mb-8 md:mb-10 text-center">
-                       <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base transition-colors">
+            <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base transition-colors">
               Log in to access your dashboard.
             </p>
           </div>

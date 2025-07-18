@@ -8,10 +8,12 @@ import { updateProfile } from "@/redux/slices/authSlice";
 const UserProfile = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
-  
+
   const [name, setName] = useState(user?.name || "");
   const [image, setImage] = useState(user?.image || "");
-  const [shippingAddress, setShippingAddress] = useState(user?.shippingAddress || "");
+  const [shippingAddress, setShippingAddress] = useState(
+    user?.shippingAddress || "",
+  );
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ const UserProfile = () => {
           name,
           image,
           shippingAddress,
-        })
+        }),
       ).unwrap();
 
       // Update redux state with new user info

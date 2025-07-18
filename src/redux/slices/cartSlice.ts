@@ -27,10 +27,10 @@ export const fetchCart = createAsyncThunk(
       return response.data.cart.items;
     } catch (error: any) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch cart"
+        error.response?.data?.message || "Failed to fetch cart",
       );
     }
-  }
+  },
 );
 
 // Add item to cart
@@ -38,7 +38,7 @@ export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async (
     { productId, quantity }: { productId: string; quantity: number },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const token = getToken();
@@ -50,15 +50,15 @@ export const addToCart = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       return response.data.cart.items;
     } catch (error: any) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to add item"
+        error.response?.data?.message || "Failed to add item",
       );
     }
-  }
+  },
 );
 
 // Remove item from cart (Optimized to update UI immediately)
@@ -76,10 +76,10 @@ export const removeFromCart = createAsyncThunk(
       return productId;
     } catch (error: any) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to remove item"
+        error.response?.data?.message || "Failed to remove item",
       );
     }
-  }
+  },
 );
 
 // Clear cart
@@ -97,10 +97,10 @@ export const clearCart = createAsyncThunk(
       return [];
     } catch (error: any) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to clear cart"
+        error.response?.data?.message || "Failed to clear cart",
       );
     }
-  }
+  },
 );
 
 const cartSlice = createSlice({
@@ -144,7 +144,7 @@ const cartSlice = createSlice({
         state.loading = false;
         // Remove the item locally
         state.items = state.items.filter(
-          (item: CartItem) => item.product._id !== action.payload
+          (item: CartItem) => item.product._id !== action.payload,
         );
       })
       .addCase(removeFromCart.rejected, (state, action) => {

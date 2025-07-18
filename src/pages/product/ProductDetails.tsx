@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import {useLocation, useNavigate, useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "@/redux/store";
 import { fetchProductById } from "@/redux/slices/productSlice";
 import { toast } from "sonner";
@@ -9,10 +9,11 @@ import { addToCart } from "@/redux/slices/cartSlice";
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.auth.user);
   const { product, status, error } = useSelector(
-    (state: RootState) => state.products
+    (state: RootState) => state.products,
   );
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const ProductDetails = () => {
         toast.error("Product ID is missing");
       }
     } else {
-      navigate("/login");
+     navigate("/auth/login", { replace: true, state: { from: location } });
     }
   };
 

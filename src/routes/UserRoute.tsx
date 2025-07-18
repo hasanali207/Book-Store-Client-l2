@@ -1,9 +1,14 @@
-import { RootState } from '@/redux/store'
-import { useSelector } from 'react-redux'
-import { Navigate, Outlet } from 'react-router-dom'
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 export default function UserRoute() {
-  const {user} = useSelector((state:RootState) => state.auth)
-    console.log(user)
-    return user?.role === "user" ? <Outlet/> : <Navigate to= "/login"/>
+  const { user } = useSelector((state: RootState) => state.auth);
+  const location = useLocation();
+
+  return user?.role === "user" ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/auth/login" state={{ from: location }} replace />
+  );
 }

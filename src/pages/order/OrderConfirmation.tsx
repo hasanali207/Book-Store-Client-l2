@@ -10,7 +10,7 @@ const OrderConfirmation = () => {
   const navigate = useNavigate();
 
   const { order, status, error } = useSelector(
-    (state: RootState) => state.orders
+    (state: RootState) => state.orders,
   );
 
   useEffect(() => {

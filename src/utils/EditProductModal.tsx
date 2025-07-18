@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateProduct } from "@/redux/slices/productSlice";
 import { toast } from "sonner";
-import { AppDispatch } from "@/redux/store"; 
+import { AppDispatch } from "@/redux/store";
 import { Product } from "@/types";
 
 // Define the Props for the component
@@ -34,8 +34,8 @@ const EditProductModal: React.FC<EditProductModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-     if (!product || !product._id) {
+
+    if (!product || !product._id) {
       toast.error("Product ID is missing. Cannot update product.");
       return;
     }

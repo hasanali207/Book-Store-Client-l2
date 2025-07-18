@@ -7,7 +7,7 @@ const UserOrders = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
   const { orders, status, error } = useSelector(
-    (state: RootState) => state.orders
+    (state: RootState) => state.orders,
   );
 
   useEffect(() => {

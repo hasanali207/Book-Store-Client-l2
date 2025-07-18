@@ -14,7 +14,7 @@ const getUserFromLocalStorage = () => {
 // Define the initial state structure
 interface AuthState {
   user: {
-    _id: string;
+    id: string;
     name: string;
     role: "user" | "admin";
     email: string;
@@ -60,12 +60,16 @@ const authSlice = createSlice({
     // Update profile and persist it to localStorage
     updateProfile: (
       state,
-      action: PayloadAction<{ name?: string; shippingAddress?: string; image?: string }>
+      action: PayloadAction<{
+        name?: string;
+        shippingAddress?: string;
+        image?: string;
+      }>,
     ) => {
       if (state.user) {
         // Update the user state with the new profile data
         state.user = { ...state.user, ...action.payload };
-        
+
         // Persist updated user data in localStorage
         localStorage.setItem("user", JSON.stringify(state.user));
       }

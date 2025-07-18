@@ -9,7 +9,6 @@ const Cart = () => {
   const dispatch = useDispatch<AppDispatch>();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const navigate = useNavigate();
-  console.log(cartItems)
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -24,20 +23,20 @@ const Cart = () => {
 
   const totalAmount = cartItems.reduce(
     (sum, item) => sum + item?.product?.price * item.quantity,
-    0
+    0,
   );
 
   const handleCheckout = () => {
     // Check if any product quantity exceeds stock
     const outOfStockItems = cartItems.filter(
-      (item) => item?.quantity > item.product.quantity
+      (item) => item?.quantity > item.product.quantity,
     );
 
     if (outOfStockItems?.length > 0) {
       toast.error(
         `Some items exceed available stock: ${outOfStockItems
           .map((item) => item?.product?.name)
-          .join(", ")}`
+          .join(", ")}`,
       );
       return;
     }

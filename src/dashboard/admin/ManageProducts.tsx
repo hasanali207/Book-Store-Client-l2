@@ -15,7 +15,7 @@ const ManageProducts = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const { products, status, error } = useSelector(
-    (state: RootState) => state.products
+    (state: RootState) => state.products,
   );
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const ManageProducts = () => {
     }
 
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
     if (!confirmDelete) return;
 

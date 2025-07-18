@@ -33,7 +33,7 @@ export const placeOrder = createAsyncThunk(
       totalPrice: number;
       paymentIntentId: string;
     },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const response = await axios.post(
@@ -44,13 +44,13 @@ export const placeOrder = createAsyncThunk(
           totalPrice,
           paymentStatus: "Paid",
           paymentIntentId,
-        }
+        },
       );
       return response.data.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Order placement failed");
     }
-  }
+  },
 );
 
 // Fetch a Single Order by ID
@@ -59,13 +59,13 @@ export const fetchOrder = createAsyncThunk(
   async (orderId: string, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/orders/${orderId}`
+        `${import.meta.env.VITE_BASE_URL}/orders/${orderId}`,
       );
       return response.data.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Failed to fetch order");
     }
-  }
+  },
 );
 
 // Fetch all orders
@@ -74,13 +74,13 @@ export const fetchOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/orders`
+        `${import.meta.env.VITE_BASE_URL}/orders`,
       );
       return response.data.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Failed to fetch orders");
     }
-  }
+  },
 );
 
 // Update order status
@@ -88,20 +88,20 @@ export const updateOrderStatus = createAsyncThunk(
   "orders/updateOrderStatus",
   async (
     { orderId, newStatus }: { orderId: string; newStatus: string },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const response = await axios.patch(
         `${import.meta.env.VITE_BASE_URL}/orders/${orderId}`,
-        { status: newStatus }
+        { status: newStatus },
       );
       return response.data;
     } catch (error: any) {
       return rejectWithValue(
-        error.response?.data || "Failed to update order status"
+        error.response?.data || "Failed to update order status",
       );
     }
-  }
+  },
 );
 
 const orderSlice = createSlice({
@@ -158,7 +158,7 @@ const orderSlice = createSlice({
         state.status = "succeeded";
         const updatedOrder = action.payload;
         const index = state.orders.findIndex(
-          (order) => order._id === updatedOrder._id
+          (order) => order._id === updatedOrder._id,
         );
         if (index !== -1) {
           state.orders[index] = updatedOrder;
